@@ -30,14 +30,14 @@ class App extends React.Component {
     })
   };
 
-  clearAll = event => {
+  clearAll = () => {
     this.setState({
       toDoItems: [],
       inputText: ""
     })
   };
 
-  clearComplete = event => {
+  clearComplete = () => {
     this.setState({
       toDoItems: this.state.toDoItems.filter(task => task.complete === false)
     })
@@ -52,48 +52,34 @@ class App extends React.Component {
   markComplete = id => {
     this.setState({
       toDoItems: this.state.toDoItems.map(task => {
-        if (task.id === id) {
+        if (task.id === id ) {
           console.log(task);
           return {
-            ...task,
-            complete: true
-          };
+            ...task, 
+            complete: task.complete === false ? true : false};
         } else {
           return task;
         }
       })
     });
   }
-
+  
   render() {
-    return ( <
-      div >
-      <
-      h2 > Welcome to your Todo App! < /h2> <
-      ToDoList toDoItems = {
-        this.state.toDoItems
-      }
-      markComplete = {
-        this.markComplete
-      }
-      /> <
-      ToDoForm addToDo = {
-        this.addToDo
-      }
-      clearComplete = {
-        this.clearComplete
-      }
-      clearAll = {
-        this.clearAll
-      }
-      handleChange = {
-        this.handleChange
-      }
-      inputText = {
-        this.state.inputText
-      }
-      /> <
-      /div>
+    return (
+      <div>
+        <h2>Welcome to your Todo App!</h2>
+        <ToDoList 
+          toDoItems={this.state.toDoItems}
+          markComplete={this.markComplete}
+        />
+        <ToDoForm
+          addToDo={this.addToDo}
+          clearComplete={this.clearComplete}
+          clearAll={this.clearAll}
+          handleChange={this.handleChange}
+          inputText={this.state.inputText}
+        />
+      </div>
     );
   }
 }
